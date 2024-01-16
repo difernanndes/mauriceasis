@@ -11,10 +11,7 @@
         <div class="card-body table-responsive p-0">
             <table class="table table-hover text-nowrap">
                 <div class="card-header">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">
-                        Novo Usuário
-                    </button>
+                    <a href="{{route('users.create')}}" class="btn btn-sm btn-success">Novo Usuário</a>
                     <div class="card-tools">
                         <div class="card-tools" style="margin-top: 5px">
                             <div class="input-group input-group-sm" style="width: 200px;">
@@ -32,8 +29,9 @@
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>Matrícula</th>
-                                        <th>Perfil ADM</th>
-                                        <th>Motorista</th>
+                                        <th>ADM</th>
+                                        <th>Logística</th>
+                                        <th>Portaria</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -45,7 +43,8 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->registration}}</td>
                                         <td>{{$user->admin === 1 ? 'Sim':'Não'}}</td>
-                                        <td>{{$user->driver === 1 ? 'Sim':'Não'}}</td>
+                                        <td>{{$user->logistics === 1 ? 'Sim':'Não'}}</td>
+                                        <td>{{$user->concierge === 1 ? 'Sim':'Não'}}</td>
                                         <td>
                                             <a href="{{route('users.edit', ['user' => $user->id])}}" class="btn btn-sm btn-primary">Editar</a>
                                             @if($loggedId !== intval($user->id))

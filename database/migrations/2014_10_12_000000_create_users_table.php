@@ -21,7 +21,6 @@ return new class extends Migration
             $table->boolean('admin')->default(0);
             $table->boolean('logistics')->default(0);
             $table->boolean('concierge')->default(0);
-            $table->boolean('driver')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

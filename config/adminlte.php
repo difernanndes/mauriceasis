@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => '/',
+    'dashboard_url' => '/home',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -299,18 +299,29 @@ return [
         // Sidebar items:
         [
             'text'        => 'Home',
-            'url'         => '/',
+            'url'         => '/home',
             'icon'        => 'fas fa-home',
         ],
         [
             'text'        => 'Logística',
             'url'         => '#',
             'icon'        => 'fas fa-truck',
+            'can'         => 'edit-logistics',
             'submenu'     => [
                 [
                     'text'  => 'Cheklist',
                     'url'   => '#',
                     'icon'  => 'fas fa-check-square'
+                ],
+                [
+                    'text' => 'Veículos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-bus',
+                ],
+                [
+                    'text' => 'Itens do Checklist',
+                    'url'  => '#',
+                    'icon' => 'fa fa-check-double',
                 ],
             ],
         ],
@@ -318,6 +329,7 @@ return [
             'text'        => 'Portaria',
             'url'         => '#',
             'icon'        => 'fas fa-door-open',
+            'can'         => 'edit-concierge',
             'submenu'     => [
                 [
                     'text'  => 'Livro de Acesso',
@@ -337,40 +349,29 @@ return [
             ],
         ],
         [
-            'text'        => 'Relatórios',
-            'url'         => '#',
-            'icon'        => 'fas fa-file-pdf',
-            'can'         => '',
-        ],
-        ['header' => 'Administração'],
-        [
             'text'        => 'Cadastros',
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-file',
-            'can'         => '',
+            'can'         => 'edit-admin',
             'submenu'       => [
                 [
                     'text'        => 'Usuários',
                     'url'         => 'users',
-                    'icon'        => 'fas fa-fw fa-users',
-                    'can'         => '',
-                ],
-                [
-                    'text' => 'Veículos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-bus',
-                ],
-                [
-                    'text' => 'Itens do Checklist',
-                    'url'  => '#',
-                    'icon' => 'fa fa-check-double',
+                    'icon'        => 'fas fa-fw fa-users'
                 ],
                 [
                     'text' => 'Avisos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-exclamation-triangle',
+                    'url'  => 'warnings',
+                    'icon' => 'fas fa-exclamation-triangle'
                 ],
             ],
+        ],
+        
+        [
+            'text'        => 'Relatórios',
+            'url'         => '#',
+            'icon'        => 'fas fa-file-pdf',
+            'can'         => '',
         ],
     ],
 

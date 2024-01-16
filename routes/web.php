@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('login', 'App\Http\Controllers\LoginController@index')->name('login');
 Route::post('login',   'App\Http\Controllers\LoginController@authenticate');
@@ -25,3 +25,8 @@ Route::get('logout', 'App\Http\Controllers\LoginController@logout')->name('logou
 Route::post('logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
 
 Route::resource('users', 'App\Http\Controllers\UserController');
+
+Route::get('profile', 'App\Http\Controllers\ProfileController@index')->name('profile');
+Route::put('profilesave', 'App\Http\Controllers\ProfileController@save')->name('profile.save');
+
+Route::resource('warnings', 'App\Http\Controllers\WarningController');

@@ -22,14 +22,28 @@ class CreateUsersSeed extends Seeder
             "registration" => 39504,
             "password" => Hash::make("hojediego0"),
             "admin" => 1,
+            "concierge" => 1,
+            "logistics" => 1,
         ]);
 
         DB::table('users')->insert([
-            "name" => "Teste",
-            "email" => "teste@teste.com.br",
+            "name" => "Logistica",
+            "email" => "logistica@teste.com.br",
             "registration" => 111111,
-            "password" => Hash::make("teste"),
+            "password" => Hash::make("logistica"),
             "admin" => 0,
+            "concierge" => 0,
+            "logistics" => 1,
+        ]);
+
+        DB::table('users')->insert([
+            "name" => "Portaria",
+            "email" => "portaria@teste.com.br",
+            "registration" => 222222,
+            "password" => Hash::make("portaria"),
+            "admin" => 0,
+            "concierge" => 1,
+            "logistics" => 0,
         ]);
     }
 }

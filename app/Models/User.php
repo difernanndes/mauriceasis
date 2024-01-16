@@ -21,9 +21,10 @@ class User extends Authenticatable
         $loggedId = intval(Auth::id());
 
         $user = User::find($loggedId);
-        $hasImage = public_path('/media/images/profile/'.(strtolower(str_replace(" ", "", $user['name'])))).'.jpg';
+        $hasImage = public_path('/media/images/profile/'.(strtolower(str_replace(" ", "", $user['registration'])))).'.jpg';
+
         if(file_exists($hasImage)) {
-            return '/media/images/profile/'.(strtolower(str_replace(" ", "", $user['name']))).".jpg";
+            return '/media/images/profile/'.(strtolower(str_replace(" ", "", $user['registration']))).'.jpg';
         }
         else {
             return '/media/images/profile/profile.jpg';
@@ -39,6 +40,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'registration',
+        'admin',
+        'logistic',
+        'concierge'
     ];
 
     /**
