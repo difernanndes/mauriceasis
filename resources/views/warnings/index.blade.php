@@ -12,7 +12,7 @@
     <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
             <div class="card-header">
-                <a href="{{route('users.create')}}" class="btn btn-sm btn-success">Novo Aviso</a>
+                <a href="{{route('warnings.create')}}" class="btn btn-sm btn-success">Novo Aviso</a>
                 <div class="card-tools">
                     <div class="card-tools" style="margin-top: 5px">
                         <div class="input-group input-group-sm" style="width: 200px;">
@@ -37,15 +37,17 @@
                                 <tr>
                                     <td>{{$warning->id}}</td>
                                     <td>{{$warning->title}}</td>
-                                    <td>{{$warning->body}}</td>
-                                    <td></td>
+                                    <td>{{mb_strimwidth($warning->body, 0, 60, "...");}}</td>
+                                    <td>{{$warning->user_name}}</td>
                                     <td>
+                                        @if($warning->user_name === $loggedName)
                                         <a href="{{route('warnings.edit', ['warning' => $warning->id])}}" class="btn btn-sm btn-primary">Editar</a>
                                         <form class="d-inline" method="POST" action="{{route('warnings.destroy', ['warning' => $warning->id])}}" onsubmit="return confirm('Tem certeza que deseja excluir?')">
                                             @method('DELETE')
                                             @csrf
                                             <button  class="btn btn-sm btn-danger">Excluir</button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

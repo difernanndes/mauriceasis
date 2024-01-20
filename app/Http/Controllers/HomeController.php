@@ -15,12 +15,12 @@ class HomeController extends Controller
 
     public function index() {
         $loggedId = intval(Auth::id());
-        $warnings = Warning::paginate(3);
-
+        $warnings = Warning::orderBy('id', 'desc')->paginate(3);
         $user = User::find($loggedId);
+
         return view('home', [
             'user' => $user,
-            'warnings' => $warnings
+            'warnings' => $warnings,
         ]);
     }
 

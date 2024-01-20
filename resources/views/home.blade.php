@@ -36,9 +36,9 @@
                             <div class="callout callout-success">
                                 <h4>
                                   <i class="fas fa-info"></i>
-                                  {{$warning->title}}:
+                                  <b>{{$warning->title}}:</b>
                                 </h4>
-                                <h6 class="card-subtitle mb-2 text-muted">Por: Diego Fernandes</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">Por: {{$warning->user_name}}</h6>
                                 <div class="card-text">
                                     <h5>{{$warning->body}}<h5>
                                 </div>

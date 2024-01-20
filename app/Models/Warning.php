@@ -12,6 +12,7 @@ class Warning extends Model
     protected $fillable = [
         'title',
         'body',
+        'id_user',
     ];
 
 }

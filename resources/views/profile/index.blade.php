@@ -74,6 +74,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-12">
+                        <button type="button" class="btn btn-secondary" onclick="history.go(-1);">Voltar</button>
                         <input type="submit" value="Salvar" class="btn btn-success"/>
                     </div>
                 </div>

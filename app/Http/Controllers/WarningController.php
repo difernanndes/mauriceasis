@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Warning;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class WarningController extends Controller
 {
@@ -23,6 +25,8 @@ class WarningController extends Controller
     public function index()
     {
         $search = request('warning_search');
+        
+        $loggedName = Auth::user()->name;
 
         if($search) {
             $warnings = Warning::where('title', 'like', '%'.$search.'%')
@@ -32,11 +36,12 @@ class WarningController extends Controller
             $warnings = Warning::orderBy('id', 'desc')->paginate(10);
         }
 
-        $user = User::all();
+        //$user = User::all();
 
         return view('warnings.index', [
             'warnings' => $warnings,
-            'search' => $search
+            'search' => $search,
+            'loggedName' => $loggedName,
         ]);
     }
 
@@ -47,7 +52,7 @@ class WarningController extends Controller
      */
     public function create()
     {
-        return view('warning.create');
+        return view('warnings.create');
     }
 
     /**
@@ -58,7 +63,31 @@ class WarningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'title',
+            'body',
+            'user_name',
+        ]);
+
+        $validator = Validator::make($data,[
+            'title' => ['required', 'string', 'max:100'],
+            'body' => ['required', 'string', 'max:255'],
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->route('warnings.create')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        $warning = new Warning;
+        $warning->title = $data['title'];
+        $warning->body = $data['body'];
+        $warning->user_name = Auth::user()->name;
+        $warning->save();
+
+        return redirect()->route('warnings.index');
+
     }
 
     /**
@@ -80,7 +109,19 @@ class WarningController extends Controller
      */
     public function edit($id)
     {
-        //
+        $warning = Warning::find($id);
+        $loggedName = Auth::user()->name;
+        
+        if($loggedName === $warning->user_name) {
+            if($warning) {
+                return view('warnings.edit', [
+                    'warning' => $warning,
+                ]);
+            }
+        
+        }
+        return redirect()->route('warnings.index');
+
     }
 
     /**
@@ -92,7 +133,33 @@ class WarningController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $warning = Warning::find($id);
+        if($warning) {
+            $data = $request->only([
+                'title',
+                'body',
+                'user_name',
+            ]);
+
+            $validator = Validator::make($data, [
+                'title' => ['required', 'string', 'max:100'],
+                'body' => ['required', 'string', 'max:255'],
+            ]);
+
+            $warning->title = $data['title'];
+            $warning->body = $data['body'];
+
+            if($validator->fails()) {
+                return redirect()->route('warnings.edit', [
+                    'warning' => $id
+                ])->withErros($validator)
+                ->withInput();
+            }
+
+            $warning->save();
+
+            return redirect()->route('warnings.index');
+        }
     }
 
     /**
@@ -103,6 +170,9 @@ class WarningController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $warning =  Warning::find($id);
+        $warning->delete();
+
+        return redirect()->route('warnings.index');
     }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('warnings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->references('id')->on('users');
             $table->string('title', 100);
             $table->string('body', 255);
+            $table->string('user_name', 100);
             $table->timestamps();
         });
     }
